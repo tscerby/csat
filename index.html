@@ -1,26 +1,50 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+</head>
 <body>
-    <h1>Thank You for Your Feedback!</h1>
-    <p>We really appreciate your response.</p>
-    
+
+<!--  https://tscerby.github.io/csat/?source=email&userEmail={{260588224__userEmail}}&customerWorkspaceName={{260588224__customerWorkspaceName}}&agentEmail={{260588224__agentEmail}}&feedback_score=5&ticket_number={{260588224__conversationId}} -->
+
+    <h1>Thank You!</h1>
+    <p id="message"></p>
+
     <script>
-        // Send the webhook request to Zapier in the background
-        fetch('https://hooks.zapier.com/hooks/catch/123456/abcde/', {
+        // Function to get URL parameters
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                customer_name: params.get('customer_name'),
+                feedback: params.get('feedback')
+            };
+        }
+
+        // Get the parameters from the URL
+        const params = getUrlParams();
+        
+        // Display a personalized message using the parameters
+        document.getElementById('message').innerHTML = `Thank you, ${params.customer_name}, for your feedback: ${params.feedback}.`;
+
+        // Now send the data to the Zapier webhook
+        fetch('https://hooks.zapier.com/hooks/catch/12162495/2m4crtm/', {
             method: 'POST',
-            body: JSON.stringify({
-                customer_name: 'John Doe',
-                feedback: 'Great'
-            }),
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify({
+                customer_name: params.customer_name,
+                feedback: params.feedback
+            })
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Webhook sent successfully:', data);
+            console.log('Success:', data);
         })
         .catch((error) => {
-            console.error('Error sending webhook:', error);
+            console.error('Error:', error);
         });
     </script>
 </body>
