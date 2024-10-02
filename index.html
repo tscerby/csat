@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<!--  https://tscerby.github.io/csat/?source=email&userEmail={{260588224__userEmail}}&customerWorkspaceName={{260588224__customerWorkspaceName}}&agentEmail={{260588224__agentEmail}}&feedback_score=5&ticket_number={{260588224__conversationId}} -->
+<!--  https://tscerby.github.io/csat/?source=email&userEmail=testero@aol.com -->
 
     <h1>Thank You!</h1>
     <p id="message"></p>
@@ -17,8 +17,12 @@
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
             return {
-                customer_name: params.get('customer_name'),
-                feedback: params.get('feedback')
+                source: params.get('source'),
+                userEmail: params.get('userEmail'),
+                customerWorkspaceName: params.get('customerWorkspaceName'),
+                agentEmail: params.get('agentEmail'),
+                feedback_score: params.get('feedback_score'),
+                ticket_number: params.get('ticket_number')
             };
         }
 
@@ -26,7 +30,7 @@
         const params = getUrlParams();
         
         // Display a personalized message using the parameters
-        document.getElementById('message').innerHTML = `Thank you, ${params.customer_name}, for your feedback: ${params.feedback}.`;
+        document.getElementById('message').innerHTML = `Thank you, ${params.userEmail}, for your feedback!`;
 
         // Now send the data to the Zapier webhook
         fetch('https://hooks.zapier.com/hooks/catch/12162495/2m4crtm/', {
@@ -35,8 +39,12 @@
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                customer_name: params.customer_name,
-                feedback: params.feedback
+                source: params.source,
+                userEmail: params.userEmail,
+                customerWorkspaceName: params.customerWorkspaceName,
+                agentEmail: params.agentEmail,
+                feedback_score: params.feedback_score,
+                ticket_number: params.ticket_number
             })
         })
         .then(response => response.json())
