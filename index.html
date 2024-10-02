@@ -1,0 +1,27 @@
+<html>
+<body>
+    <h1>Thank You for Your Feedback!</h1>
+    <p>We really appreciate your response.</p>
+    
+    <script>
+        // Send the webhook request to Zapier in the background
+        fetch('https://hooks.zapier.com/hooks/catch/123456/abcde/', {
+            method: 'POST',
+            body: JSON.stringify({
+                customer_name: 'John Doe',
+                feedback: 'Great'
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Webhook sent successfully:', data);
+        })
+        .catch((error) => {
+            console.error('Error sending webhook:', error);
+        });
+    </script>
+</body>
+</html>
