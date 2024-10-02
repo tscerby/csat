@@ -3,14 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You</title>
+    <title>Thank You - Cerby</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F4F4F9; /* Light background for the page */
+            color: #333; /* Dark text color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .container img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #002B5D; /* Cerby primary blue */
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #002B5D; /* Cerby primary blue */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background-color: #00407A; /* Slightly lighter blue on hover */
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #999;
+        }
+    </style>
 </head>
 <body>
 
 <!--  https://tscerby.github.io/csat/?source=email&userEmail=testero@aol.com -->
-
-    <h1>Thank You6!</h1>
-    <p id="message"></p>
 
     <script>
         // Function to get all URL parameters as an object
@@ -59,7 +121,37 @@
             });
 
 
+    <h1>Thank You6!</h1>
+    <p id="message"></p>
+
 
     </script>
+
+
+ <div class="container">
+        <!-- Cerby Logo -->
+        <img src="https://play-lh.googleusercontent.com/xmztd8bLjI3krg_v8ggPZx4nk4sOPtkFiKYiQRaHeaaJd48JSLLU2TTTlQeJYdT6Zfl6" alt="Cerby Logo">
+
+        <!-- Dynamic Content Section -->
+        <h1>Thank You for Your Feedback!</h1>
+        <p id="message">Your feedback helps us improve our services and deliver better experiences.</p>
+
+        <!-- CTA Button (optional) -->
+        <a href="https://cerby.com" class="button">Return to Homepage</a>
+
+        <!-- Footer -->
+        <div class="footer">
+            &copy; 2024 Cerby. All rights reserved.
+        </div>
+    </div>
+
+    <script>
+
+        // Display a personalized message using the parameters
+        document.getElementById('message').innerHTML = `Thank you, ${params.userEmail}, for your feedback. We appreciate your feedback of ${params.feedback_score} stars.`;
+    </script>
+
+
+
 </body>
 </html>
