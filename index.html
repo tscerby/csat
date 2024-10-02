@@ -9,7 +9,7 @@
 
 <!--  https://tscerby.github.io/csat/?source=email&userEmail=testero@aol.com -->
 
-    <h1>Thank You2!</h1>
+    <h1>Thank You3!</h1>
     <p id="message"></p>
 
     <script>
@@ -33,7 +33,7 @@
         document.getElementById('message').innerHTML = `Thank you, ${params.userEmail}, for your feedback!`;
 
         // Now send the data to the Zapier webhook
-        fetch('https://hooks.zapier.com/hooks/catch/12162495/2m4crtm/', {
+        fetch('https://hooks.zapier.com/hooks/catch/12162495/2m4crtm/?source=emaail', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
