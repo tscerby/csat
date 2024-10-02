@@ -9,48 +9,55 @@
 
 <!--  https://tscerby.github.io/csat/?source=email&userEmail=testero@aol.com -->
 
-    <h1>Thank You5!</h1>
+    <h1>Thank You6!</h1>
     <p id="message"></p>
 
     <script>
-        // Function to get URL parameters
+        // Function to get all URL parameters as an object
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
-            return {
-                source: params.get('source'),
-                userEmail: params.get('userEmail'),
-                customerWorkspaceName: params.get('customerWorkspaceName'),
-                agentEmail: params.get('agentEmail'),
-                feedback_score: params.get('feedback_score'),
-                ticket_number: params.get('ticket_number')
+            let urlParams = {
+                source: params.get('source') || 'default_source',
+                userEmail: params.get('userEmail') || 'default_userEmail',
+                customerWorkspaceName: params.get('customerWorkspaceName') || 'defaultWorkspace',
+                agentEmail: params.get('agentEmail') || 'default_agentEmail',
+                feedback_score: params.get('feedback_score') || 5,
+                ticket_number: params.get('ticket_number') || 'default_ticket_number'
             };
+            return urlParams;
         }
 
         // Get the parameters from the URL
         const params = getUrlParams();
-        
-        // Display a personalized message using the parameters
-        document.getElementById('message').innerHTML = `Thank you, ${params.userEmail}, for your feedback!`;
 
-        // Now send the data to the Zapier webhook
-        // Construct the URL with query parameters
-        let zapierURL = `https://hooks.zapier.com/hooks/catch/12162495/2m4crtm/?source=email&userEmail=apv.com&customerWorkspaceName=${encodeURIComponent(params.customerWorkspaceName || 'defaultWorkspace')}&agentEmail=${encodeURIComponent(params.agentEmail || 'agent@example.com')}&feedback_score=${encodeURIComponent(params.feedback_score || 5)}&ticket_number=${encodeURIComponent(params.ticket_number || '12345')}`;
+        // Function to construct the Zapier URL dynamically
+        function buildZapierUrl(baseUrl, params) {
+            const queryParams = new URLSearchParams(params).toString();  // Automatically converts object to query string
+            return `${baseUrl}?${queryParams}`;  // Concatenates the base URL with the query string
+        }
 
-        // Send a GET request with all the parameters in the URL
-        fetch(zapierURL)
-        .then(response => {
-            if (response.ok) {
-                return response.text();  // Read the response as text
-            } else {
-                throw new Error('Request failed with status ' + response.status);
-            }
-        })
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+        // Zapier webhook base URL
+        const zapierBaseUrl = 'https://hooks.zapier.com/hooks/catch/12162495/2m4crtm/';
+
+        // Build the full Zapier URL with the parameters
+        const zapierFullUrl = buildZapierUrl(zapierBaseUrl, params);
+
+        // Now send the GET request with the constructed URL
+        fetch(zapierFullUrl)
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('Request failed with status ' + response.status);
+                }
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
 
 
     </script>
