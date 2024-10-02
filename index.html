@@ -124,18 +124,18 @@
 
     </script>
 
-
-    <h1>Thank You7!</h1>
-    <p id="message"></p>
-
-
  <div class="container">
         <!-- Cerby Logo -->
         <img src="https://play-lh.googleusercontent.com/xmztd8bLjI3krg_v8ggPZx4nk4sOPtkFiKYiQRaHeaaJd48JSLLU2TTTlQeJYdT6Zfl6" alt="Cerby Logo">
 
         <!-- Dynamic Content Section -->
         <h1>Thank You for Your Feedback!</h1>
-        <p id="message">Your feedback helps us improve our services and deliver better experiences.</p>
+        <p id="message">
+            <script>
+                // Display a personalized message using the parameters
+                document.getElementById('message').innerHTML = `Thank you, ${params.userEmail}, for your feedback. We appreciate your feedback of ${params.feedback_score} stars.`;
+            </script>
+        </p>
 
         <!-- CTA Button (optional) -->
         <a href="https://cerby.com" class="button">Return to Homepage</a>
@@ -146,11 +146,6 @@
         </div>
     </div>
 
-    <script>
-
-        // Display a personalized message using the parameters
-        document.getElementById('message').innerHTML = `Thank you, ${params.userEmail}, for your feedback. We appreciate your feedback of ${params.feedback_score} stars.`;
-    </script>
 
 
 
