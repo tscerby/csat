@@ -9,7 +9,7 @@
 
 <!--  https://tscerby.github.io/csat/?source=email&userEmail=testero@aol.com -->
 
-    <h1>Thank You3!</h1>
+    <h1>Thank You4!</h1>
     <p id="message"></p>
 
     <script>
@@ -33,27 +33,31 @@
         document.getElementById('message').innerHTML = `Thank you, ${params.userEmail}, for your feedback!`;
 
         // Now send the data to the Zapier webhook
-        fetch('https://hooks.zapier.com/hooks/catch/12162495/2m4crtm/?source=emaail', {
+        fetch('https://hooks.zapier.com/hooks/catch/12162495/2m4crtm/', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                source: params.source,
-                userEmail: 'apv.com',
-                customerWorkspaceName: params.customerWorkspaceName,
-                agentEmail: params.agentEmail,
-                feedback_score: params.feedback_score,
-                ticket_number: params.ticket_number
+            body: new URLSearchParams({
+                source: params.source || 'email',
+                userEmail: 'apv.com',  // Hardcoded email
+                customerWorkspaceName: params.customerWorkspaceName || 'defaultWorkspace',
+                agentEmail: params.agentEmail || 'agent@example.com',
+                feedback_score: params.feedback_score || 5,
+                ticket_number: params.ticket_number || '12345'
             })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.ok) {
+                return response.text();  // Change to text since Zapier may not return JSON
+            } else {
+                throw new Error('Request failed with status ' + response.status);
+            }
+        })
         .then(data => {
             console.log('Success:', data);
         })
         .catch((error) => {
             console.error('Error:', error);
         });
+
     </script>
 </body>
 </html>
